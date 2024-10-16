@@ -1,0 +1,19 @@
+.property {
+    background-color: rgb(214, 246, 236);
+}
+
+.property img {
+    align-items: center;
+}
+.property__tilte{
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: darkblue;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.property__location{
+    text-align: center;
+    
+}

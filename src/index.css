@@ -1,0 +1,17 @@
+body {
+    background-color: antiquewhite;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+    border-radius: 3rem;
+}
+
+h1{
+    color: darkblue;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 2rem;
+}
+
