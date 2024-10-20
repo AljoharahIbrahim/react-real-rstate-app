@@ -2,7 +2,7 @@ import React from 'react';
 import Property from './Property.jsx';
 import Styles from "./Properties.module.css";
 const Properties = (props) => {
-const { properties } = props;
+const { properties, onHandleDeleteProperty } = props;
   
     // return (
     //   <section>
@@ -14,7 +14,13 @@ const { properties } = props;
         return (
             <section className={Styles.properties}>
             {properties.map((property, index) => {
-              return <Property property={property} key={index} />;
+              return (
+                <Property
+                  property={property}
+                  onHandleDeleteProperty={onHandleDeleteProperty}
+                  key={index}
+                />
+              );
             })}
           </section>
         );

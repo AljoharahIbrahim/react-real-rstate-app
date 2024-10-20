@@ -13,6 +13,11 @@ export const App = () => {
       return [...prevProperites, newProperty];
     });
   }
+  const handleDeleteProperty = (id) => {
+    // alert(id);
+    const filterProperities = properties.filter((property) => property.id != id);
+    setProperites(filterProperities);
+  }
   return (
     <div>
       {<AddProperty onHandleAddProperty={handleAddProperty} />}
@@ -21,7 +26,7 @@ export const App = () => {
       <>
         <h1>Real Estate Website</h1>
         {propertiesData.length > 0 ? (
-          <Properties properties={properties} />
+          <Properties properties={properties} onHandleDeleteProperty={handleDeleteProperty} />
         ) : (
           " There are no property "
         )}
