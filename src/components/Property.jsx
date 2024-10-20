@@ -1,4 +1,5 @@
-import { properties } from "../data.js";
+import React from "react";
+import { propertiesData } from "../data.js";
 import Styles from "./Property.module.css";
 
 const Property = (props) => {

@@ -1,34 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import {propertiesData } from "./data.js";
 import Properties from './components/Properties';
-const properties = [
-  {
-    id: 1,
-    title: "Charming Cottage",
-    location: "123 Maple St, Springfield, IL",
-    image: "/clay-banks-I4dFsMhbgsU-unsplash.jpg",
-    price: 250000,
-  },
-  {
-    id: 2,
-    title: "Modern Apartment",
-    location: "456 Oak Ave, Springfield, IL",
-    image: "/burak-arslan-tSzjnKOgT1s-unsplash.jpg",
-    price: 300000,
-  },
-  {
-    id: 3,
-    title: "Spacious Family Home",
-    location: "789 Pine Rd, Springfield, IL",
-    image: "/timothy-buck-psrloDbaZc8-unsplash.jpg",
-    price: 450000,
-  },
-];
+import Counter from './Counter';
+import AddProperty from './components/AddProperty';
+
 export const App = () => {
+
+  const [properties, setProperites] = useState(propertiesData);
+  const handleAddProperty = (newProperty) => {
+    setProperites((prevProperites) => {
+      return [...prevProperites, newProperty];
+    });
+  }
   return (
-    <>
-      <h1>Real Estate Website</h1>
-      <Properties properties={properties} />
-    </>
+    <div>
+      {<AddProperty onHandleAddProperty={handleAddProperty} />}
+      {/* {<Counter />} */}
+
+      <>
+        <h1>Real Estate Website</h1>
+        {propertiesData.length > 0 ? (
+          <Properties properties={properties} />
+        ) : (
+          " There are no property "
+        )}
+      </>
+    </div>
   );
 };
 

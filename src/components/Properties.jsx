@@ -2,7 +2,7 @@ import React from 'react';
 import Property from './Property.jsx';
 import Styles from "./Properties.module.css";
 const Properties = (props) => {
-    const { properties } = props;
+const { properties } = props;
   
     // return (
     //   <section>
