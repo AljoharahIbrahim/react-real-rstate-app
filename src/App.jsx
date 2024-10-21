@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+ import { ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+ 
 import { propertiesData } from "./Data/data.js";
 import Properties from "./components/Properties";
 import Counter from "./Counter";
@@ -28,6 +31,7 @@ export const App = () => {
   };
   return (
     <div>
+      <ToastContainer/>
       {<AddProperty onHandleAddProperty={handleAddProperty} />}
 
       {updateProperty && <UpdateProperty updateProperty={updateProperty} />}

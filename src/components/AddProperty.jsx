@@ -1,5 +1,7 @@
 import React from "react";
 
+import { toast } from "react-toastify";
+
 import { TbBuildingEstate } from "react-icons/tb";
 import { MdTitle } from "react-icons/md";
 import { MdOutlinePriceChange } from "react-icons/md";
@@ -50,6 +52,7 @@ const AddProperty = (props) => {
     console.log(newProperty);
     alert(JSON.stringify(newProperty, null, 2));
 
+    toast.success('property is created');
     //new Property
     props.onHandleAddProperty(newProperty);
     //reset
