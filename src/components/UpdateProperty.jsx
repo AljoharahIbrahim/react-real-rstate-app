@@ -1,16 +1,24 @@
 import React from "react";
 
-import { nanoid } from "nanoid";
 import { useState } from "react";
 
-const AddProperty = (props) => {
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState(0);
-  const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
-  const [location, setLocation] = useState("");
+const UpdateProperty = (props) => {
+  console.log("props---update");
+    console.log(props);
 
-  const [errors, setErrors] = useState({});
+  const {
+    title: propertyTitle,
+    price: propertyPrice,
+    description: propertyDescription,
+    image: propertyImage,
+    location: propertyLocation,
+  } = props.updateProperty;
+  const [title, setTitle] = useState(propertyTitle);
+  const [price, setPrice] = useState(propertyPrice);
+  const [description, setDescription] = useState(propertyDescription);
+  const [image, setImage] = useState(propertyImage);
+  const [location, setLocation] = useState(propertyLocation);
+
   const habdleTitleChange = (event) => {
     // console.log(event.target.value);
     setTitle(event.target.value);
@@ -31,20 +39,20 @@ const AddProperty = (props) => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newProperty = {
-      id: nanoid(),
+    const updateProperty = {
       title: title,
       description: description,
       price: price,
       image: image,
       location: location,
     };
-    console.log(newProperty);
-    alert(JSON.stringify(newProperty, null, 2));
+    console.log(updateProperty);
+    alert(JSON.stringify(updateProperty, null, 2));
 
-    //new Property
-    props.onHandleAddProperty(newProperty);
-    //reset
+    // //update Property
+    // props.onHandleupdateProperty(updateProperty);
+    //updateProperty
+    // //reset
     setTitle("");
     setPrice(0);
     setDescription("");
@@ -54,7 +62,7 @@ const AddProperty = (props) => {
 
   return (
     <div>
-      <h2>Add Property</h2>
+      <h2>Update Property</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">Title</label>
         <input
@@ -104,7 +112,7 @@ const AddProperty = (props) => {
           required
         />{" "}
         <br></br>
-        <button type="submit">Add Property</button>
+        <button type="submit">Update Property</button>
       </form>
       <p>title: {title}</p>
       <p>price: {price}</p>
@@ -115,4 +123,4 @@ const AddProperty = (props) => {
   );
 };
 
-export default AddProperty;
+export default UpdateProperty;

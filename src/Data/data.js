@@ -20,4 +20,5 @@ export const propertiesData = [
     image: "/timothy-buck-psrloDbaZc8-unsplash.jpg",
     price: 450000,
   },
+  
 ];
