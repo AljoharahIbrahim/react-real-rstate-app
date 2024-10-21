@@ -9,7 +9,6 @@ import { MdOutlineDescription } from "react-icons/md";
 import { CiImageOn } from "react-icons/ci";
 import { CiLocationOn } from "react-icons/ci";
 
-
 import { nanoid } from "nanoid";
 import { useState } from "react";
 
@@ -21,6 +20,7 @@ const AddProperty = (props) => {
   const [location, setLocation] = useState("");
 
   const [errors, setErrors] = useState({});
+
   const habdleTitleChange = (event) => {
     // console.log(event.target.value);
     setTitle(event.target.value);
@@ -39,8 +39,41 @@ const AddProperty = (props) => {
   const habdleLocationChange = (event) => {
     setLocation(event.target.value);
   };
+  //
+  const validateInput = () => {
+    const newErrors = {};
+
+    if (!title.length < 2) {
+       newErrors.title =
+         "Title should be at least 2 characters long";
+      console.log("newErrors.tilte");
+    }
+      if (!price || parseFloat(price) <= 0) {
+        newErrors.price = "Price must be a positive number";
+      }
+    if (!description.length < 10) {
+      newErrors.description =
+        "Description should be at least 10 characters long";
+    }
+    if (!image) {
+      newErrors.image = "image is required";
+    }
+    if (!location) {
+      newErrors.location = "location is required";
+    }
+    setErrors(newErrors);
+    console.log(errors);
+     return Object.keys(newErrors).length === 0;
+  };
+
+
+  //
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (validateInput())
+    {
+
     const newProperty = {
       id: nanoid(),
       title: title,
@@ -52,7 +85,7 @@ const AddProperty = (props) => {
     console.log(newProperty);
     alert(JSON.stringify(newProperty, null, 2));
 
-    toast.success('property is created');
+    toast.success("property is created");
     //new Property
     props.onHandleAddProperty(newProperty);
     //reset
@@ -61,12 +94,43 @@ const AddProperty = (props) => {
     setDescription("");
     setImage("");
     setLocation("");
+
+    }
+    else {
+      console.log(errors);
+    }
+  
+
+
+
+
+    // const newProperty = {
+    //   id: nanoid(),
+    //   title: title,
+    //   description: description,
+    //   price: price,
+    //   image: image,
+    //   location: location,
+    // };
+    // console.log(newProperty);
+    // alert(JSON.stringify(newProperty, null, 2));
+
+    // toast.success("property is created");
+    // //new Property
+    // props.onHandleAddProperty(newProperty);
+    // //reset
+    // setTitle("");
+    // setPrice(0);
+    // setDescription("");
+    // setImage("");
+    // setLocation("");
   };
 
   return (
     <div>
-      <h2><TbBuildingEstate /> Add Property</h2>
-      
+      <h2>
+        <TbBuildingEstate /> Add Property
+      </h2>
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">
@@ -79,7 +143,8 @@ const AddProperty = (props) => {
           onChange={habdleTitleChange}
           value={title}
           required
-        />
+        />{" "}
+        {errors.title && <span>{errors.title}</span>}
         <br></br>
         <br></br>
         <label htmlFor="price">
@@ -94,6 +159,7 @@ const AddProperty = (props) => {
           value={price}
           required
         />{" "}
+        {errors.price && <span>{errors.price}</span>}
         <br></br>
         <br></br>
         <label htmlFor="description">
@@ -107,6 +173,7 @@ const AddProperty = (props) => {
           value={description}
           required
         />
+        {errors.description && <span>{errors.description}</span>}
         <br></br>
         <br></br>
         <label htmlFor="image">
@@ -120,6 +187,7 @@ const AddProperty = (props) => {
           value={image}
           required
         />{" "}
+        {errors.image && <span>{errors.image}</span>}
         <br></br>
         <label htmlFor="location">
           <CiLocationOn />
@@ -132,6 +200,7 @@ const AddProperty = (props) => {
           value={location}
           required
         />{" "}
+        {errors.location && <span>{errors.location}</span>}
         <br></br>
         <button type="submit">Add Property </button>
       </form>
