@@ -1,5 +1,13 @@
 import React from "react";
 
+import { TbBuildingEstate } from "react-icons/tb";
+import { MdTitle } from "react-icons/md";
+import { MdOutlinePriceChange } from "react-icons/md";
+import { MdOutlineDescription } from "react-icons/md";
+import { CiImageOn } from "react-icons/ci";
+import { CiLocationOn } from "react-icons/ci";
+
+
 import { nanoid } from "nanoid";
 import { useState } from "react";
 
@@ -54,9 +62,14 @@ const AddProperty = (props) => {
 
   return (
     <div>
-      <h2>Add Property</h2>
+      <h2><TbBuildingEstate /> Add Property</h2>
+      
+
       <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Title</label>
+        <label htmlFor="title">
+          <MdTitle />
+          Title
+        </label>
         <input
           type="text"
           id="title"
@@ -66,7 +79,11 @@ const AddProperty = (props) => {
         />
         <br></br>
         <br></br>
-        <label htmlFor="price">Price</label>
+        <label htmlFor="price">
+          {" "}
+          <MdOutlinePriceChange />
+          Price
+        </label>
         <input
           type="number"
           id="price"
@@ -76,7 +93,10 @@ const AddProperty = (props) => {
         />{" "}
         <br></br>
         <br></br>
-        <label htmlFor="description">description</label>
+        <label htmlFor="description">
+          <MdOutlineDescription />
+          description
+        </label>
         <textarea
           type="text"
           id="description"
@@ -86,7 +106,10 @@ const AddProperty = (props) => {
         />
         <br></br>
         <br></br>
-        <label htmlFor="image">Image URL</label>
+        <label htmlFor="image">
+          <CiImageOn />
+          Image URL
+        </label>
         <input
           type="text"
           id="image"
@@ -95,7 +118,10 @@ const AddProperty = (props) => {
           required
         />{" "}
         <br></br>
-        <label htmlFor="location">Location</label>
+        <label htmlFor="location">
+          <CiLocationOn />
+          Location
+        </label>
         <input
           type="text"
           id="location"
@@ -104,7 +130,7 @@ const AddProperty = (props) => {
           required
         />{" "}
         <br></br>
-        <button type="submit">Add Property</button>
+        <button type="submit">Add Property </button>
       </form>
       <p>title: {title}</p>
       <p>price: {price}</p>
