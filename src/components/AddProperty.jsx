@@ -1,7 +1,12 @@
 import React from "react";
 
-import { toast } from "react-toastify";
+import { uploadImageToCloudinary } from "../utility/UploadImage.js";
+import Property from "./Property";
 
+import { nanoid } from "nanoid";
+import { useState } from "react";
+
+import { toast } from "react-toastify";
 import { TbBuildingEstate } from "react-icons/tb";
 import { MdTitle } from "react-icons/md";
 import { MdOutlinePriceChange } from "react-icons/md";
@@ -9,20 +14,16 @@ import { MdOutlineDescription } from "react-icons/md";
 import { CiImageOn } from "react-icons/ci";
 import { CiLocationOn } from "react-icons/ci";
 
-import { nanoid } from "nanoid";
-import { useState } from "react";
-
 const AddProperty = (props) => {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState("" | null);
   const [location, setLocation] = useState("");
-
   const [errors, setErrors] = useState({});
-
+  const [imageFile, setImageFile] = useState(null);
+  // handles functions for each state => title, price, Description, Image, Location,
   const habdleTitleChange = (event) => {
-    // console.log(event.target.value);
     setTitle(event.target.value);
   };
   const habdlePriceChange = (event) => {
@@ -31,27 +32,31 @@ const AddProperty = (props) => {
   const habdleDescriptionChange = (event) => {
     setDescription(event.target.value);
   };
-
   const habdleImageChange = (event) => {
-    setImage(event.target.value);
+    // console.log(event.target.files[0]);
+    setImageFile(event.target.files[0]);
+    const file = event.target.files?.[0];
+    if (file) {
+      setImage(URL.createObjectURL(file));
+      console.log(URL.createObjectURL(file));
+    }
   };
-
   const habdleLocationChange = (event) => {
     setLocation(event.target.value);
   };
-  //
+  
+  // validation function for validate input form
   const validateInput = () => {
     const newErrors = {};
 
-    if (!title.length < 2) {
-       newErrors.title =
-         "Title should be at least 2 characters long";
-      console.log("newErrors.tilte");
+    if (title.length < 2) {
+      newErrors.title = "Title should be at least 2 characters long";
+      console.log("newErrors.tilte = " + title.length);
     }
-      if (!price || parseFloat(price) <= 0) {
-        newErrors.price = "Price must be a positive number";
-      }
-    if (!description.length < 10) {
+    if (!price || parseFloat(price) <= 0) {
+      newErrors.price = "Price must be a positive number";
+    }
+    if (description.length < 10) {
       newErrors.description =
         "Description should be at least 10 characters long";
     }
@@ -62,68 +67,44 @@ const AddProperty = (props) => {
       newErrors.location = "location is required";
     }
     setErrors(newErrors);
-    console.log(errors);
-     return Object.keys(newErrors).length === 0;
+    // console.log(errors);
+    return Object.keys(newErrors).length === 0;
   };
 
-
-  //
-  const handleSubmit = (event) => {
+  //handle sumbit add property form
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (validateInput())
-    {
-
-    const newProperty = {
-      id: nanoid(),
-      title: title,
-      description: description,
-      price: price,
-      image: image,
-      location: location,
-    };
-    console.log(newProperty);
-    alert(JSON.stringify(newProperty, null, 2));
-
-    toast.success("property is created");
-    //new Property
-    props.onHandleAddProperty(newProperty);
-    //reset
-    setTitle("");
-    setPrice(0);
-    setDescription("");
-    setImage("");
-    setLocation("");
-
-    }
-    else {
+    //call uploadImageToCloudinary function to upload the image
+    let imageUrl = "";
+    // if (image && image.length > 0) {
+    imageUrl = await uploadImageToCloudinary(imageFile);
+    console.log(imageUrl);
+    // }
+    // call validateInput to insure the input values as except
+    if (validateInput()) {
+      const newProperty = {
+        id: nanoid(),
+        title: title,
+        description: description,
+        price: price,
+        image: imageUrl,
+        location: location,
+      };
+      // console.log(newProperty);
+      alert(JSON.stringify(newProperty, null, 2));
+      // call toast 'react-function' for inhance submit status
+      toast.success("property is created");
+      // add new Property
+      props.onHandleAddProperty(newProperty);
+      //reset the form
+      setTitle("");
+      setPrice(0);
+      setDescription("");
+      setImage(null);
+      setLocation("");
+    } else {
       console.log(errors);
     }
-  
-
-
-
-
-    // const newProperty = {
-    //   id: nanoid(),
-    //   title: title,
-    //   description: description,
-    //   price: price,
-    //   image: image,
-    //   location: location,
-    // };
-    // console.log(newProperty);
-    // alert(JSON.stringify(newProperty, null, 2));
-
-    // toast.success("property is created");
-    // //new Property
-    // props.onHandleAddProperty(newProperty);
-    // //reset
-    // setTitle("");
-    // setPrice(0);
-    // setDescription("");
-    // setImage("");
-    // setLocation("");
   };
 
   return (
@@ -178,15 +159,25 @@ const AddProperty = (props) => {
         <br></br>
         <label htmlFor="image">
           <CiImageOn />
-          Image URL
+          Image
         </label>
         <input
-          type="text"
+          type="file"
           id="image"
+          accept="image/*"
           onChange={habdleImageChange}
-          value={image}
+          //value={image}
           required
         />{" "}
+        {errors.image && (
+          <div>
+            <img
+              src={URL.createObjectURL(image)}
+              alt="Selected Preview"
+              style={{ maxWidth: "100%", height: "auto", marginTop: "10px" }}
+            />
+          </div>
+        )}
         {errors.image && <span>{errors.image}</span>}
         <br></br>
         <label htmlFor="location">
