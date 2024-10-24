@@ -1,6 +1,7 @@
 import React from "react";
 
 import { uploadImageToCloudinary } from "../utility/UploadImage.js";
+import { extractPublicIdFromUrl } from "../utility/UploadImage.js";
 import Property from "./Property";
 
 import { nanoid } from "nanoid";
@@ -38,13 +39,16 @@ const AddProperty = (props) => {
     const file = event.target.files?.[0];
     if (file) {
       setImage(URL.createObjectURL(file));
-      console.log(URL.createObjectURL(file));
+      console.log((file));
+      //
+      //  extractPublicIdFromUrl(file);
+
     }
   };
   const habdleLocationChange = (event) => {
     setLocation(event.target.value);
   };
-  
+
   // validation function for validate input form
   const validateInput = () => {
     const newErrors = {};
@@ -102,6 +106,9 @@ const AddProperty = (props) => {
       setDescription("");
       setImage(null);
       setLocation("");
+      //*** */
+        // extractPublicIdFromUrl(URL.createObjectURL(image));
+
     } else {
       console.log(errors);
     }

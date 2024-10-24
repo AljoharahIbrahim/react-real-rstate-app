@@ -10,6 +10,18 @@ const Property = (props) => {
 
   const handleDeleteProperty = (id) => {
     onHandleDeleteProperty(id);
+    //delete image
+    // const deleteImage = async (e) => {
+    //   e.preventDefault();
+    //   cloudinary.v2.uploader
+    //     .destroy(imageData.public_id, function (error, result) {
+    //       console.log(result, error);
+    //     })
+    //     .then((resp) => console.log(resp))
+    //     .catch((_err) =>
+    //       console.log("Something went wrong, please try again later.")
+    //     );
+    // };
   };
   const handleUpdateProperty = (property) => {
     console.log("property");

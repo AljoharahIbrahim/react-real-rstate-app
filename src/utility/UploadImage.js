@@ -24,3 +24,20 @@ export const uploadImageToCloudinary = async (file) => {
     throw error;
   }
 };
+
+export const extractPublicIdFromUrl = (url) => {
+  const regex = /\/v\d+\/(.+?)\.(jpg|jpeg|png|gif|webp|bmp|tiff)$/; // Adjust extensions as needed
+  const match = url.match(regex);
+  
+  if (match && match[1]) {
+    return match[1]; // This is the public_id
+  } else {
+    throw new Error("Invalid Cloudinary URL");
+  }
+};
+
+// // Example usage
+// const imageUrl =
+//   "https://res.cloudinary.com/dkqssm5hg/image/upload/v1234567890/your_public_id.jpg";
+// const publicId = extractPublicIdFromUrl(imageUrl);
+// console.log("Public ID:", publicId); // Output: your_public_id
