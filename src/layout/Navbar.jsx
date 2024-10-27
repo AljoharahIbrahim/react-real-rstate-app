@@ -4,6 +4,14 @@ import { Outlet, Link } from "react-router-dom";
 import Styles from "../Styles/Navbar.module.css";
 
 const Navbar = () => {
+
+  const handelSignout = () => {
+                   localStorage.setItem(
+                     "singin",
+                     JSON.stringify({ isSignIn: false })
+                   );
+
+  }
   return (
     <div>
       <nav className={Styles.Navbar}>
@@ -22,6 +30,9 @@ const Navbar = () => {
           </li>
           <li className={Styles["nav-item"]}>
             <Link to="/signin">Signin</Link>
+          </li>
+          <li className={Styles["nav-item"]}>
+            <Link to="/signout" onClick={handelSignout}>Signout</Link>
           </li>
         </ul>
       </nav>

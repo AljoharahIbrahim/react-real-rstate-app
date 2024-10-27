@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Styles from "../Styles/PropertiesList.module.css";
 
@@ -12,9 +12,16 @@ import Properties from "../components/Properties";
 import Counter from "../Counter";
 import AddProperty from "../components/AddProperty";
 import UpdateProperty from "../components/UpdateProperty.jsx";
+import {PropertyContext} from "../Context/PropertyContext.jsx";
+// import { PropertyContext } from './Context/PropertyContext'; // Adjust path as needed
 
 export default function PropertiesList() {
-  const [properties, setProperites] = useState(propertiesData);
+  // const [properties, setProperites] = useState(propertiesData);
+
+  const context = useContext(PropertyContext);
+  console.log("-------");
+    console.log(context);
+
   const [updateProperty, setUpdate] = useState(null);
   const handleAddProperty = (newProperty) => {
     setProperites((prevProperites) => {
@@ -23,10 +30,10 @@ export default function PropertiesList() {
   };
   const handleDeleteProperty = (id) => {
     // alert(id);
-    const filterProperities = properties.filter(
+    const filterProperities = context.properties.filter(
       (property) => property.id != id
     );
-    setProperites(filterProperities);
+    context.setProperites(filterProperities);
   };
   const handleUpdateProperty = (property) => {
     alert("update" + property);
@@ -42,7 +49,7 @@ export default function PropertiesList() {
         <h1>Real Estate Website</h1>
         {propertiesData.length > 0 ? (
           <Properties
-            properties={properties}
+            properties={context.properties}
             onHandleDeleteProperty={handleDeleteProperty}
             onHandleUpdateProperty={handleUpdateProperty}
           />

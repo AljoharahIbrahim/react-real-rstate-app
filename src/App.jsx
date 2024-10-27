@@ -22,6 +22,9 @@ import UserDashboard from "./components/UserDashboard.jsx";
 import AdminDashboard from "./components/AdminDashboard.jsx";
 import UserOrder from "./components/UserOrder.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
+import AdminRoute from "./routes/AdminRoute.jsx";
+import Signout from "./pages/Signout.jsx";
+import  PropertyProvider  from "./Context/PropertyContext.jsx";
 
 export const App = () => {
 
@@ -50,6 +53,10 @@ export const App = () => {
             element: <Signin />,
           },
           {
+            path: "/signout",
+            element: <Signout />,
+          },
+          {
             path: "/profile",
             element: <Profile />,
           },
@@ -74,21 +81,33 @@ export const App = () => {
             element: <ProtectedRoute />,
             children: [
               {
-                path: "orders",
+                path: "/dashboard/users/view",
                 element: <UserDashboard />,
               },
             ],
           },
           {
             path: "/dashboard/admins",
-            element: <AdminDashboard />,
+            element: <AdminRoute />,
+            children: [
+              {
+                path: "/dashboard/admins/view",
+                element: <AdminDashboard />,
+              },
+            ],
           },
         ],
       },
     ]);
 
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <PropertyProvider>
+        <RouterProvider router={router} />
+      </PropertyProvider>
+    </>
+  );
 
   // const [properties, setProperites] = useState(propertiesData);
   // const [updateProperty, setUpdate] = useState(null);
