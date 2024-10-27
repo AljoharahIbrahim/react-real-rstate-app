@@ -2,6 +2,7 @@ import React from "react";
 
 import Property from "./Property.jsx";
 import Styles from "../Styles/Properties.module.css";
+import { Link } from "react-router-dom";
 
 const Properties = (props) => {
   const { properties, onHandleDeleteProperty, onHandleUpdateProperty } = props;
@@ -17,12 +18,18 @@ const Properties = (props) => {
     <section className={Styles.properties}>
       {properties.map((property, index) => {
         return (
-          <Property
-            property={property}
-            onHandleDeleteProperty={onHandleDeleteProperty}
-            onHandleUpdateProperty={onHandleUpdateProperty}
-            key={index}
-          />
+          <>
+            <Property
+              property={property}
+              onHandleDeleteProperty={onHandleDeleteProperty}
+              onHandleUpdateProperty={onHandleUpdateProperty}
+              key={index}
+            />
+          
+            {/* <Link to={`/properties/${property.id}`}>Show Details</Link> */}
+
+            {/* <Link to={'/properites/${property.id}'}> show Details</Link> */}
+          </>
         );
       })}
     </section>

@@ -14,6 +14,14 @@ import Home from "./pages/Home.jsx";
 import Navbar from "./layout/Navbar.jsx";
 import Content from "./pages/Content.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
+import Signin from "./pages/Signin.jsx";
+import Profile from "./pages/Profile.jsx";
+import PropertyDetails from "./pages/PropertyDetails.jsx";
+import PropertiesList from "./pages/PropertiesList.jsx";
+import UserDashboard from "./components/UserDashboard.jsx";
+import AdminDashboard from "./components/AdminDashboard.jsx";
+import UserOrder from "./components/UserOrder.jsx";
+import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 
 export const App = () => {
 
@@ -27,7 +35,7 @@ export const App = () => {
       {
         path: "/",
         element: <Navbar />,
-        errorElement: <ErrorPage/>,
+        errorElement: <ErrorPage />,
         children: [
           {
             path: "/",
@@ -38,8 +46,42 @@ export const App = () => {
             element: <Home />,
           },
           {
-            path: "/Properites",
-            element: <Content />,
+            path: "/signin",
+            element: <Signin />,
+          },
+          {
+            path: "/profile",
+            element: <Profile />,
+          },
+          {
+            path: "/properties",
+            element: <PropertiesList />,
+          },
+          {
+            path: "/properties/:id",
+            element: <PropertyDetails />,
+          },
+          {
+            path: "/addProperty",
+            element: <AddProperty />,
+          },
+          {
+            path: "/updateProperty",
+            element: <UpdateProperty />,
+          },
+          {
+            path: "/dashboard/users",
+            element: <ProtectedRoute />,
+            children: [
+              {
+                path: "orders",
+                element: <UserDashboard />,
+              },
+            ],
+          },
+          {
+            path: "/dashboard/admins",
+            element: <AdminDashboard />,
           },
         ],
       },

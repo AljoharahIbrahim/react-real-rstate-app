@@ -2,6 +2,7 @@ import React from "react";
 
 import { propertiesData } from "../Data/data.js";
 import Styles from "../Styles/Property.module.css";
+import { Link } from "react-router-dom";
 
 const Property = (props) => {
   const { property, onHandleDeleteProperty, onHandleUpdateProperty } = props;
@@ -36,7 +37,8 @@ const Property = (props) => {
         <p>location : {location}</p>
         <p>price : {price}</p>
         <button onClick={() => handleDeleteProperty(id)}>Delete</button>
-        <button onClick={() => handleUpdateProperty(property)}>Update</button>
+        <button onClick={() => handleUpdateProperty(property)}>Update</button><br></br>
+        <Link to={`/properties/${id}`} state={property}>Show Details</Link>
       </article>
     </>
   );
